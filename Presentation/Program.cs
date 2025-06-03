@@ -1,7 +1,14 @@
 using Azure.Messaging.ServiceBus;
+using Data.Contexts;
+using Data.Interfaces;
+using Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<IOrderRepository, OrderRepsitory>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -12,6 +19,8 @@ builder.Services.AddSingleton<ServiceBusClient>(provider =>
     var connectionString = builder.Configuration.GetConnectionString("ServiceBus");
     return new ServiceBusClient(connectionString);
 });
+
+builder.Services.AddDbContext<OrderContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("VentixeDatabaseConnection")));
 
 var app = builder.Build();
 
