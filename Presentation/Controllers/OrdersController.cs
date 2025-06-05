@@ -1,5 +1,6 @@
 ﻿using Data.Entities;
 using Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Interfaces;
@@ -15,6 +16,7 @@ namespace Presentation.Controllers
         private readonly IOrderService _orderService = orderService;
         private readonly IPaymentMethodRepository _paymentMethodRepository = paymentMethodRepository;
 
+        [Authorize]
         [HttpGet("form-data")]
         public async Task<IActionResult> GetOrderFormData()
         {
@@ -30,6 +32,7 @@ namespace Presentation.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateOrder(OrderDto dto)
         {
@@ -60,6 +63,7 @@ namespace Presentation.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetOrders(string? status)
         {
