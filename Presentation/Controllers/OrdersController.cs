@@ -22,7 +22,7 @@ namespace Presentation.Controllers
         {
             try
             {
-                OrderDto dto = new();
+                OrderFormDataDto dto = new();
                 dto.PaymentMethodOptions = await PopulatePaymentMethodsAsync();
                 return Ok(dto);
             }

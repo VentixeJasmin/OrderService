@@ -17,8 +17,6 @@ public class OrderDto
     [Required]
     public int PaymentMethodId { get; set; }
 
-    public List<PaymentMethodEntity> PaymentMethodOptions { get; set; } = [];
-
     [Required(ErrorMessage = "Required")]
     [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Invalid email address")]
     [DataType(DataType.EmailAddress)]
