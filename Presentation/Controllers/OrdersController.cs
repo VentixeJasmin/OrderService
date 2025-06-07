@@ -27,7 +27,7 @@ namespace Presentation.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new {message = "Couldn't load payment options."});
             }
         }
 
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
                     return BadRequest(error: "Error creating order.");
                 }
 
-                return Created();
+                return Created("", orderResult);
             }
             catch (Exception ex)
             {
