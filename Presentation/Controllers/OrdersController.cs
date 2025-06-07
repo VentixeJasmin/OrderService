@@ -41,13 +41,26 @@ namespace Presentation.Controllers
 
             try
             {
-                var customerResult = await _customerService.CreateCustomer(dto);
-                if (customerResult == null)
+                int customerId; 
+
+                var existingCustomer = await _customerService.GetCustomerByEmail(dto.Email);
+                if (existingCustomer != null)
                 {
-                    return BadRequest( error: "Error creating customer."); 
+                    await _customerService.UpdateCustomerFromOrder(existingCustomer.Id, dto);
+                    customerId = existingCustomer.Id;
+                } 
+                else
+                {
+                    var customerResult = await _customerService.CreateCustomer(dto);
+                    if (customerResult == null)
+                    {
+                        return BadRequest(error: "Error creating customer.");
+                    }
+
+                    customerId = customerResult.Id;
                 }
 
-                var orderResult = await _orderService.CreateOrder(dto, customerResult.Id);
+                var orderResult = await _orderService.CreateOrder(dto, customerId);
                 if (orderResult == null)
                 {
                     return BadRequest(error: "Error creating order.");
