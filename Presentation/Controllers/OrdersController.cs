@@ -32,7 +32,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(OrderDto dto)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderDto dto)
         {
             if (!ModelState.IsValid)
             {
