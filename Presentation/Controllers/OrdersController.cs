@@ -16,7 +16,6 @@ namespace Presentation.Controllers
         private readonly IOrderService _orderService = orderService;
         private readonly IPaymentMethodRepository _paymentMethodRepository = paymentMethodRepository;
 
-        [Authorize]
         [HttpGet("form-data")]
         public async Task<IActionResult> GetOrderFormData()
         {
@@ -32,7 +31,6 @@ namespace Presentation.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateOrder(OrderDto dto)
         {
